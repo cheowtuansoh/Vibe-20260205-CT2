@@ -16,9 +16,42 @@ function populateCountries() {
     countrySelect.appendChild(fragment);
 }
 
+function displayItinerary(country, days, itinerary) {
+    itineraryContainer.innerHTML = `<h2>Your ${country} Itinerary for ${days} Days</h2>`;
+    const table = document.createElement('table');
+    table.classList.add('itinerary-table');
+
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    const dayHeader = document.createElement('th');
+    dayHeader.textContent = 'Day';
+    const activityHeader = document.createElement('th');
+    activityHeader.textContent = 'Activity';
+    headerRow.appendChild(dayHeader);
+    headerRow.appendChild(activityHeader);
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    const fragment = document.createDocumentFragment();
+    itinerary.dailyActivities.forEach((activity, index) => {
+        const row = document.createElement('tr');
+        const dayCell = document.createElement('td');
+        dayCell.textContent = `Day ${index + 1}`;
+        const activityCell = document.createElement('td');
+        activityCell.textContent = activity;
+        row.appendChild(dayCell);
+        row.appendChild(activityCell);
+        fragment.appendChild(row);
+    });
+    tbody.appendChild(fragment);
+    table.appendChild(tbody);
+    itineraryContainer.appendChild(table);
+}
+
 async function generateItinerary(country, days, interest) {
     itineraryContainer.innerHTML = '<h2>Generating your itinerary...</h2><p>Please wait, this might take a moment.</p>';
-    
+
     if (!days || days <= 0) {
         itineraryContainer.innerHTML = '<p>Please select a valid date range.</p>';
         return;
@@ -34,34 +67,9 @@ async function generateItinerary(country, days, interest) {
             dailyActivities.push(getActivityForDay(i + 1, country, interest));
         }
         const itinerary = { dailyActivities };
-        
+
         // Display the generated itinerary
-        itineraryContainer.innerHTML = `<h2>Your ${country} Itinerary for ${days} Days</h2>`;
-        const table = document.createElement('table');
-        table.classList.add('itinerary-table');
-
-        const thead = document.createElement('thead');
-        thead.innerHTML = `
-            <tr>
-                <th>Day</th>
-                <th>Activity</th>
-            </tr>
-        `;
-        table.appendChild(thead);
-
-        const tbody = document.createElement('tbody');
-        const fragment = document.createDocumentFragment(); 
-        itinerary.dailyActivities.forEach((activity, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>Day ${index + 1}</td>
-                <td>${activity}</td>
-            `;
-            fragment.appendChild(row);
-        });
-        tbody.appendChild(fragment);
-        table.appendChild(tbody);
-        itineraryContainer.appendChild(table);
+        displayItinerary(country, days, itinerary);
 
     } catch (error) {
         console.error('Error generating itinerary:', error);

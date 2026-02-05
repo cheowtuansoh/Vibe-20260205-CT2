@@ -19,14 +19,21 @@ This project is a simple web application that allows users to generate travel it
     *   **Itinerary Display:** Improved styling for the generated itinerary items.
     *   **Responsive Design:** Implemented media queries to ensure the layout works well on different screen sizes.
 *   **Error Fix (Feb 5, 2026):** Implemented client-side mock for itinerary generation in `main.js` to resolve "Unexpected end of JSON input" error caused by a placeholder Firebase Function URL. This allows the application to function locally without a deployed backend.
+*   **User Feedback Form:** Integrated a user feedback form using Formspree.
+*   **Code Optimization (Feb 5, 2026):**
+    *   **CSS:** Fixed a bug where CSS variables were used in multiplication without the `calc()` function.
+    *   **JavaScript:** Refactored itinerary generation in `main.js` to use performant, direct DOM manipulation instead of `innerHTML`. Improved code structure by creating a dedicated `displayItinerary` function.
 
-## Current Task: Add User Feedback Form
+## Current Task: Code Optimization
 
 ### Plan
-The current task is to integrate a user feedback form using Formspree.
+The current task is to analyze and optimize the codebase for structure, performance, and best practices.
 
 ### Steps
-1.  **Update `blueprint.md`**: (Completed) Document the plan to add the feedback form.
-2.  **Modify `index.html`**: Add the HTML structure for the feedback form.
-3.  **Modify `style.css`**: Add styles for the new feedback form.
-4.  **Verify**: Check the browser preview to ensure the form is displayed correctly.
+1.  **Update `blueprint.md`**: (Completed) Document the optimization plan.
+2.  **Fix CSS `calc()` Bug**: (Completed) Correct invalid multiplication with CSS variables in `style.css` by using the `calc()` function.
+3.  **Refactor JavaScript**: (Completed)
+    *   Rewrite the itinerary display logic in `main.js` to use `document.createElement` instead of `innerHTML`.
+    *   Improve the clarity and structure of the `generateItinerary` function.
+4.  **Verify**: (Completed) Application functions correctly after optimizations.
+5.  **Commit Changes**: (In Progress) Commit the optimized code to GitHub.
