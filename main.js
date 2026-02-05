@@ -6,18 +6,21 @@ const endDateInput = document.getElementById('end-date');
 const interestSelect = document.getElementById('interest-select');
 
 function populateCountries() {
+    const fragment = document.createDocumentFragment();
     popularCountries.forEach(country => {
         const option = document.createElement('option');
         option.value = country;
         option.textContent = country;
-        countrySelect.appendChild(option);
+        fragment.appendChild(option);
     });
+    countrySelect.appendChild(fragment);
 }
 
 function generateItinerary(country, days, interest) {
     itineraryContainer.innerHTML = '';
-    if (!country || !days || days <= 0) {
-        itineraryContainer.innerHTML = '<p>Please select a country and a valid date range.</p>';
+    // Removed !country check as it's validated in the event listener
+    if (!days || days <= 0) {
+        itineraryContainer.innerHTML = '<p>Please select a valid date range.</p>';
         return;
     }
 
@@ -34,6 +37,7 @@ function generateItinerary(country, days, interest) {
     table.appendChild(thead);
 
     const tbody = document.createElement('tbody');
+    const fragment = document.createDocumentFragment(); // Use DocumentFragment
     for (let i = 1; i <= days; i++) {
         const row = document.createElement('tr');
         const activity = getActivityForDay(i, country, interest);
@@ -41,8 +45,9 @@ function generateItinerary(country, days, interest) {
             <td>Day ${i}</td>
             <td>${activity}</td>
         `;
-        tbody.appendChild(row);
+        fragment.appendChild(row); // Append to fragment
     }
+    tbody.appendChild(fragment); // Append fragment to tbody once
     table.appendChild(tbody);
 
     itineraryContainer.appendChild(table);
@@ -64,16 +69,37 @@ function getActivityForDay(day, country, interest) {
 
 generateButton.addEventListener('click', () => {
     const selectedCountry = countrySelect.value;
-    const startDate = new Date(startDateInput.value);
-    const endDate = new Date(endDateInput.value);
+    const startDateValue = startDateInput.value;
+    const endDateValue = endDateInput.value;
     const selectedInterest = interestSelect.value;
+
+    // Validate required fields in order: Country, Start Date, End Date
+    if (!selectedCountry) {
+        alert('Please choose a country first.');
+        return;
+    }
+    if (!startDateValue) {
+        alert('Please select a Start Date next.');
+        return;
+    }
+    if (!endDateValue) {
+        alert('Please select an End Date.');
+        return;
+    }
+
+    const startDate = new Date(startDateValue);
+    const endDate = new Date(endDateValue);
+
+    // Validate date range
+    if (startDate > endDate) {
+        alert('Start date cannot be after end date. Please select a valid date range.');
+        return;
+    }
 
     if (startDate && endDate && startDate <= endDate) {
         const timeDiff = endDate.getTime() - startDate.getTime();
         const days = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
         generateItinerary(selectedCountry, days, selectedInterest);
-    } else {
-        itineraryContainer.innerHTML = '<p>Please select a valid start and end date.</p>';
     }
 });
 
