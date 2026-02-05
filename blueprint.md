@@ -20,13 +20,13 @@ This project is a simple web application that allows users to generate travel it
     *   **Responsive Design:** Implemented media queries to ensure the layout works well on different screen sizes.
 *   **Error Fix (Feb 5, 2026):** Implemented client-side mock for itinerary generation in `main.js` to resolve "Unexpected end of JSON input" error caused by a placeholder Firebase Function URL. This allows the application to function locally without a deployed backend.
 
-## Current Task: Error Fix
+## Current Task: Add User Feedback Form
 
 ### Plan
-The current task was to find and fix the "Error: Failed to execute 'json' on 'Response': Unexpected end of JSON input."
+The current task is to integrate a user feedback form using Formspree.
 
 ### Steps
-1.  **Identify the network request:** Located `fetch` call in `generateItinerary` function in `main.js`. (Completed)
-2.  **Examine the API endpoint:** Identified that `firebaseFunctionUrl` was a placeholder. (Completed)
-3.  **Implement client-side mock:** Modified `main.js` to use `getActivityForDay` for itinerary generation, bypassing the failing network request. (Completed)
-4.  **Verify:** The error should now be resolved, and the application should generate mock itineraries.
+1.  **Update `blueprint.md`**: (Completed) Document the plan to add the feedback form.
+2.  **Modify `index.html`**: Add the HTML structure for the feedback form.
+3.  **Modify `style.css`**: Add styles for the new feedback form.
+4.  **Verify**: Check the browser preview to ensure the form is displayed correctly.

@@ -121,7 +121,7 @@ main {
     margin-bottom: 0.5rem;
 }
 
-/* Responsive adjustments */
+    /* Responsive adjustments */
 @media (max-width: 768px) {
     .container {
         padding: var(--spacing-unit);
@@ -142,13 +142,77 @@ main {
     }
 
     .input-group select,
-    .input-group input[type="date"] {
+    .input-group input[type="date"],
+    #feedback-form .input-group input[type="email"],
+    #feedback-form .input-group textarea {
         width: 100%;
         min-width: unset;
     }
 
-    #generate-button {
+    #generate-button,
+    #feedback-form button[type="submit"] {
         width: 100%;
     }
 }
 
+/* Feedback Form Styles */
+#feedback-form-section {
+    background-color: white;
+    padding: var(--spacing-unit) * 1.5;
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 16px var(--shadow-color);
+    margin-top: var(--spacing-unit) * 2;
+    margin-bottom: var(--spacing-unit) * 2;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#feedback-form-section h2 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: var(--spacing-unit) * 1.5;
+    font-size: 2rem;
+}
+
+#feedback-form .input-group {
+    margin-bottom: var(--spacing-unit);
+}
+
+#feedback-form .input-group label {
+    margin-bottom: 0.5rem;
+}
+
+#feedback-form .input-group input[type="email"],
+#feedback-form .input-group textarea {
+    padding: 0.6rem 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--primary-color);
+    font-size: 1rem;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    width: 100%;
+    box-sizing: border-box; /* Include padding in element's total width and height */
+    resize: vertical; /* Allow vertical resizing for textarea */
+}
+
+#feedback-form button[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    display: block; /* Make button take full width */
+    width: 100%;
+    margin-top: var(--spacing-unit) * 1.5;
+}
+
+#feedback-form button[type="submit"]:hover {
+    background-color: oklch(70% 0.2 260); /* Slightly lighter primary */
+    transform: translateY(-2px);
+}

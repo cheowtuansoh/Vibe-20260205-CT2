@@ -45,6 +45,21 @@
             <section id="itinerary-container">
                 <!-- Itinerary will be generated here -->
             </section>
+
+            <section id="feedback-form-section">
+                <h2>Give Us Your Feedback!</h2>
+                <form id="feedback-form" action="https://formspree.io/f/mykdgwen" method="POST">
+                    <div class="input-group">
+                        <label for="feedback-email">Your Email:</label>
+                        <input type="email" id="feedback-email" name="email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="feedback-message">Your Message:</label>
+                        <textarea id="feedback-message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit">Send Feedback</button>
+                </form>
+            </section>
         </main>
     </div>
     <script src="countries.js"></script>
