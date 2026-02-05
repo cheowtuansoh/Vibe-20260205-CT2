@@ -1,37 +1,25 @@
-
-# Project Blueprint: Travel Itinerary Generator
+# Project Blueprint: CT's Travel Itinerary Generator
 
 ## Overview
+This project is a simple web application that allows users to generate travel itineraries based on their selected country, dates, and interests. It leverages modern web standards (HTML, CSS, JavaScript) without external frameworks, incorporating Firebase Studio's development environment awareness.
 
-This application generates a sample travel itinerary based on a user-selected country. It is a single-page web application built with HTML, CSS, and JavaScript, leveraging modern web standards for a beautiful and responsive user experience.
+## Implemented Features & Design
+*   **Initial Setup:** Basic HTML structure (`index.html`), CSS styling (`style.css`), and JavaScript logic (`main.js`, `countries.js`).
+*   **Country Selection:** Dropdown for selecting a country.
+*   **Date Range Selection:** Input fields for start and end dates.
+*   **Interest Selection:** Dropdown for selecting a travel interest (shopping, dining, sightseeing).
+*   **Itinerary Display:** A container to display generated itinerary items.
+*   **Generate Button:** Button to trigger itinerary generation.
+*   **Basic Styling:** Minimal styling using CSS variables for colors, system fonts, and basic layout.
+*   **Modern CSS:** Utilizes `oklch` for colors, CSS variables, and flexbox/grid for basic alignment.
 
-## Style, Design, and Features
+## Current Task: Layout Update
 
-### Implemented
+### Plan
+The current task is to update the layout of the page to a more modern and responsive design.
 
-*   **Initial structure:** Basic HTML, CSS, and JavaScript files with a functional country selector and itinerary display for 3 countries.
-
-### Current Implementation Plan
-
-*   **Component-based UI:** Use Web Components to create reusable UI elements for itinerary items.
-*   **Modern CSS:**
-    *   **Layout:** Use Flexbox and Grid for a responsive layout.
-    *   **Styling:** Employ CSS variables for theming, modern color spaces (OKLCH), and drop shadows for depth.
-    *   **Typography:** Use a clean, readable font with a clear visual hierarchy.
-    *   **Interactivity:** Style interactive elements like dropdowns and buttons to be intuitive and visually appealing.
-*   **Dynamic Content:**
-    *   A dropdown menu will allow users to select from over 100 countries.
-    *   JavaScript will dynamically generate and display a sample itinerary for the selected country.
-    *   The itinerary will be presented as a series of cards, each representing a day or an activity.
-*   **User Experience:**
-    *   The application will be intuitive and easy to navigate.
-    *   Visual feedback will be provided for user interactions.
-
-## Current Task: Expand Country List
-
-1.  **Create Country Data:** Create a new `countries.js` file to store a list of over 100 popular travel destinations.
-2.  **Update HTML:** Link the new `countries.js` file in `index.html`.
-3.  **Refactor JavaScript:** Modify `main.js` to:
-    *   Load the extensive country list.
-    *   Dynamically populate the country selection dropdown.
-    *   Generate a generic, plausible 6-day itinerary for any selected country, as specific itinerary data for all countries is not available.
+### Steps
+1.  **Create/Update blueprint.md:** (Completed) Document the current application state and the plan for layout updates.
+2.  **Modify `index.html`:** Adjust the HTML structure to support the new layout (e.g., adding container divs, updating class names).
+3.  **Modify `style.css`:** Implement the new CSS rules for the header, main content, form, and itinerary display, including responsive design.
+4.  **Verify:** Check the browser preview for visual correctness and responsiveness.
