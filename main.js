@@ -25,23 +25,15 @@ async function generateItinerary(country, days, interest) {
     }
 
     try {
-        // Placeholder for your Firebase Function URL
-        const firebaseFunctionUrl = 'YOUR_FIREBASE_FUNCTION_URL/generateItinerary'; 
+        // const firebaseFunctionUrl = 'YOUR_FIREBASE_FUNCTION_URL/generateItinerary';
+        // For now, let's use a client-side mock to avoid the error until the Firebase Function is deployed.
 
-        const response = await fetch(firebaseFunctionUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ country, days, interest }),
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Failed to generate itinerary.');
+        // Mock itinerary generation
+        const dailyActivities = [];
+        for (let i = 0; i < days; i++) {
+            dailyActivities.push(getActivityForDay(i + 1, country, interest));
         }
-
-        const itinerary = await response.json();
+        const itinerary = { dailyActivities };
         
         // Display the generated itinerary
         itineraryContainer.innerHTML = `<h2>Your ${country} Itinerary for ${days} Days</h2>`;
