@@ -58,17 +58,19 @@ async function generateItinerary(country, days, interest) {
     }
 
     try {
-        // const firebaseFunctionUrl = 'YOUR_FIREBASE_FUNCTION_URL/generateItinerary';
-        // For now, let's use a client-side mock to avoid the error until the Firebase Function is deployed.
-
-        // Mock itinerary generation
         const dailyActivities = [];
+        let availableActivities = [];
+
+        if (recommendations[country] && recommendations[country][interest]) {
+            // Create a copy to avoid modifying the original recommendations
+            availableActivities = [...recommendations[country][interest]];
+        }
+
         for (let i = 0; i < days; i++) {
-            dailyActivities.push(getActivityForDay(i + 1, country, interest));
+            dailyActivities.push(getActivityForDay(i + 1, country, interest, availableActivities));
         }
         const itinerary = { dailyActivities };
 
-        // Display the generated itinerary
         displayItinerary(country, days, itinerary);
 
     } catch (error) {
@@ -77,17 +79,27 @@ async function generateItinerary(country, days, interest) {
     }
 }
 
-function getActivityForDay(day, country, interest) {
-    // Mock "scraping"
-    const activities = {
-        'shopping': `Go shopping for souvenirs at the local market in ${country}.`,
-        'dining': `Enjoy a traditional dinner at a highly-rated restaurant in ${country}.`,
-        'sightseeing': `Visit the most famous landmark in ${country}.`
-    };
+function getActivityForDay(day, country, interest, availableActivities) {
+    if (availableActivities.length > 0) {
+        const activitiesForDay = [];
+        const count = Math.min(availableActivities.length, 2);
 
-    let activity = activities[interest] || `Explore the city of ${country}.`;
+        for (let i = 0; i < count; i++) {
+            const randomIndex = Math.floor(Math.random() * availableActivities.length);
+            const selectedActivity = availableActivities.splice(randomIndex, 1)[0];
+            activitiesForDay.push(selectedActivity);
+        }
 
-    return `${activity}`;
+        return activitiesForDay.join(' and ');
+    } else {
+        // Fallback for countries or interests not in our recommendations
+        const activities = {
+            'shopping': `Go shopping for souvenirs at the local market in ${country}.`,
+            'dining': `Enjoy a traditional dinner at a highly-rated restaurant in ${country}.`,
+            'sightseeing': `Visit the most famous landmark in ${country}.`
+        };
+        return activities[interest] || `Explore the city of ${country}.`;
+    }
 }
 
 

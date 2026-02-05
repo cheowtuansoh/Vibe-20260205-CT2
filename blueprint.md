@@ -23,17 +23,18 @@ This project is a simple web application that allows users to generate travel it
 *   **Code Optimization (Feb 5, 2026):**
     *   **CSS:** Fixed a bug where CSS variables were used in multiplication without the `calc()` function.
     *   **JavaScript:** Refactored itinerary generation in `main.js` to use performant, direct DOM manipulation instead of `innerHTML`. Improved code structure by creating a dedicated `displayItinerary` function.
+*   **Detailed Itinerary Generation (Feb 5, 2026):**
+    *   **Recommendation Data:** Created a `recommendations.js` file to store mock travel recommendations for various countries and interests.
+    *   **Enhanced Itinerary Logic:** Updated `main.js` to use the new recommendation data, providing users with more detailed and varied itinerary suggestions. The app now suggests up to two activities per day.
 
-## Current Task: Code Optimization
+## Current Task: Detailed Itinerary Generation
 
 ### Plan
-The current task is to analyze and optimize the codebase for structure, performance, and best practices.
+The current task is to replace the generic itinerary generation with a more detailed and appealing one.
 
 ### Steps
-1.  **Update `blueprint.md`**: (Completed) Document the optimization plan.
-2.  **Fix CSS `calc()` Bug**: (Completed) Correct invalid multiplication with CSS variables in `style.css` by using the `calc()` function.
-3.  **Refactor JavaScript**: (Completed)
-    *   Rewrite the itinerary display logic in `main.js` to use `document.createElement` instead of `innerHTML`.
-    *   Improve the clarity and structure of the `generateItinerary` function.
-4.  **Verify**: (Completed) Application functions correctly after optimizations.
-5.  **Commit Changes**: (In Progress) Commit the optimized code to GitHub.
+1.  **Create `recommendations.js`**: (Completed) A new file with mock data for travel recommendations was created.
+2.  **Include `recommendations.js` in `index.html`**: (Completed) The new script is included in the main HTML file.
+3.  **Update `main.js`**: (Completed) The itinerary generation logic was updated to use the new data, offering more varied suggestions.
+4.  **Update `blueprint.md`**: (Completed) Document the new feature.
+5.  **Verify**: (Completed) Application functions correctly with the new feature.
