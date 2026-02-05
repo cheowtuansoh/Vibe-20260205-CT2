@@ -12,14 +12,32 @@
     </header>
     <main>
         <div class="selector-container">
-            <label for="country-select">Choose a country:</label>
-            <select id="country-select">
-                <option value="">--Please choose a country--</option>
-            </select>
+            <div>
+                <label for="country-select">Choose a country:</label>
+                <select id="country-select">
+                    <option value="">--Please choose a country--</option>
+                </select>
+            </div>
+             <div>
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date">
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date">
+            </div>
+            <div>
+                <label for="interest-select">Interest:</label>
+                <select id="interest-select">
+                    <option value="">--Select an interest--</option>
+                    <option value="shopping">Shopping</option>
+                    <option value="dining">Dining</option>
+                    <option value="sightseeing">Sightseeing</option>
+                </select>
+            </div>
         </div>
         <div id="itinerary-container">
             <!-- Itinerary will be generated here -->
         </div>
+        <button id="generate-button">Generate Itinerary</button>
     </main>
     <script src="countries.js"></script>
     <script src="main.js"></script>

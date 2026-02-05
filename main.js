@@ -1,5 +1,9 @@
 const countrySelect = document.getElementById('country-select');
 const itineraryContainer = document.getElementById('itinerary-container');
+const generateButton = document.getElementById('generate-button');
+const startDateInput = document.getElementById('start-date');
+const endDateInput = document.getElementById('end-date');
+const interestSelect = document.getElementById('interest-select');
 
 function populateCountries() {
     popularCountries.forEach(country => {
@@ -10,35 +14,68 @@ function populateCountries() {
     });
 }
 
-function generateItinerary(countryName) {
+function generateItinerary(country, days, interest) {
     itineraryContainer.innerHTML = '';
-    if (!countryName) return;
+    if (!country || !days || days <= 0) {
+        itineraryContainer.innerHTML = '<p>Please select a country and a valid date range.</p>';
+        return;
+    }
 
-    const itinerary = {
-        name: countryName,
-        days: [
-            { day: 1, title: `Arrival in ${countryName}`, description: `Arrive and check into your accommodation. Take some time to explore the immediate surroundings of your hotel.` },
-            { day: 2, title: "City Exploration", description: `Visit the capital city's main attractions. This could include museums, historical sites, and local markets.` },
-            { day: 3, title: "Cultural Immersion", description: `Experience the local culture by visiting a traditional village, attending a cultural performance, or taking a cooking class.` },
-            { day: 4, title: "Natural Wonders", description: `Explore the natural beauty of ${countryName}. This could be a national park, a scenic viewpoint, or a relaxing day at the beach.` },
-            { day: 5, title: "Adventure Day", description: `Engage in an adventurous activity like hiking, zip-lining, or water sports, depending on the local offerings.` },
-            { day: 6, title: "Departure", description: `Enjoy a final breakfast in ${countryName} and head to the airport for your departure.` },
-        ]
-    };
+    const table = document.createElement('table');
+    table.classList.add('itinerary-table');
 
-    itinerary.days.forEach(day => {
-        const item = document.createElement('div');
-        item.classList.add('itinerary-item');
-        item.innerHTML = `
-            <h2>Day ${day.day}: ${day.title}</h2>
-            <p>${day.description}</p>
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+        <tr>
+            <th>Day</th>
+            <th>Activity</th>
+        </tr>
+    `;
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    for (let i = 1; i <= days; i++) {
+        const row = document.createElement('tr');
+        const activity = getActivityForDay(i, country, interest);
+        row.innerHTML = `
+            <td>Day ${i}</td>
+            <td>${activity}</td>
         `;
-        itineraryContainer.appendChild(item);
-    });
+        tbody.appendChild(row);
+    }
+    table.appendChild(tbody);
+
+    itineraryContainer.appendChild(table);
 }
 
-countrySelect.addEventListener('change', (e) => {
-    generateItinerary(e.target.value);
+function getActivityForDay(day, country, interest) {
+    // Mock "scraping"
+    const activities = {
+        'shopping': `Go shopping for souvenirs at the local market in ${country}.`,
+        'dining': `Enjoy a traditional dinner at a highly-rated restaurant in ${country}.`,
+        'sightseeing': `Visit the most famous landmark in ${country}.`
+    };
+
+    let activity = activities[interest] || `Explore the city of ${country}.`;
+
+    return `${activity}`;
+}
+
+
+generateButton.addEventListener('click', () => {
+    const selectedCountry = countrySelect.value;
+    const startDate = new Date(startDateInput.value);
+    const endDate = new Date(endDateInput.value);
+    const selectedInterest = interestSelect.value;
+
+    if (startDate && endDate && startDate <= endDate) {
+        const timeDiff = endDate.getTime() - startDate.getTime();
+        const days = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
+        generateItinerary(selectedCountry, days, selectedInterest);
+    } else {
+        itineraryContainer.innerHTML = '<p>Please select a valid start and end date.</p>';
+    }
 });
+
 
 populateCountries();
