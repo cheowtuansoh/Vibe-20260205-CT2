@@ -16,41 +16,65 @@ function populateCountries() {
     countrySelect.appendChild(fragment);
 }
 
-function generateItinerary(country, days, interest) {
-    itineraryContainer.innerHTML = '';
-    // Removed !country check as it's validated in the event listener
+async function generateItinerary(country, days, interest) {
+    itineraryContainer.innerHTML = '<h2>Generating your itinerary...</h2><p>Please wait, this might take a moment.</p>';
+    
     if (!days || days <= 0) {
         itineraryContainer.innerHTML = '<p>Please select a valid date range.</p>';
         return;
     }
 
-    const table = document.createElement('table');
-    table.classList.add('itinerary-table');
+    try {
+        // Placeholder for your Firebase Function URL
+        const firebaseFunctionUrl = 'YOUR_FIREBASE_FUNCTION_URL/generateItinerary'; 
 
-    const thead = document.createElement('thead');
-    thead.innerHTML = `
-        <tr>
-            <th>Day</th>
-            <th>Activity</th>
-        </tr>
-    `;
-    table.appendChild(thead);
+        const response = await fetch(firebaseFunctionUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ country, days, interest }),
+        });
 
-    const tbody = document.createElement('tbody');
-    const fragment = document.createDocumentFragment(); // Use DocumentFragment
-    for (let i = 1; i <= days; i++) {
-        const row = document.createElement('tr');
-        const activity = getActivityForDay(i, country, interest);
-        row.innerHTML = `
-            <td>Day ${i}</td>
-            <td>${activity}</td>
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to generate itinerary.');
+        }
+
+        const itinerary = await response.json();
+        
+        // Display the generated itinerary
+        itineraryContainer.innerHTML = `<h2>Your ${country} Itinerary for ${days} Days</h2>`;
+        const table = document.createElement('table');
+        table.classList.add('itinerary-table');
+
+        const thead = document.createElement('thead');
+        thead.innerHTML = `
+            <tr>
+                <th>Day</th>
+                <th>Activity</th>
+            </tr>
         `;
-        fragment.appendChild(row); // Append to fragment
-    }
-    tbody.appendChild(fragment); // Append fragment to tbody once
-    table.appendChild(tbody);
+        table.appendChild(thead);
 
-    itineraryContainer.appendChild(table);
+        const tbody = document.createElement('tbody');
+        const fragment = document.createDocumentFragment(); 
+        itinerary.dailyActivities.forEach((activity, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>Day ${index + 1}</td>
+                <td>${activity}</td>
+            `;
+            fragment.appendChild(row);
+        });
+        tbody.appendChild(fragment);
+        table.appendChild(tbody);
+        itineraryContainer.appendChild(table);
+
+    } catch (error) {
+        console.error('Error generating itinerary:', error);
+        itineraryContainer.innerHTML = `<p style="color: red;">Error: ${error.message}. Please try again.</p>`;
+    }
 }
 
 function getActivityForDay(day, country, interest) {
